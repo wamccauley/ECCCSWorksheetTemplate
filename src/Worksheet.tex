@@ -19,7 +19,7 @@
 \newcommand{\codetip}[2]{\pdftooltip{\textcolor{blue}{#1}}{#2}}
 
 \hypersetup{
-    pdftitle={Assignment Submission},
+    pdftitle={Assignment Submission},   % EDIT PER WORKSHEET: title in PDF viewer tab
     pdfpagemode=UseNone
 }
 
@@ -38,38 +38,117 @@
     aboveskip=3mm,                 % Space before the code block
     belowskip=3mm,                 % Space after the code block
     showstringspaces=false,        % Don't show weird symbols for spaces
+    keepspaces=true,               % Preserve spaces in code listings
     columns=flexible,
     basicstyle={\small\ttfamily},  % Uses a clean monospaced font
     keywordstyle=\color{blue},     % Makes keywords (like public, class) blue
     commentstyle=\color{gray},     % Makes comments gray
-    breaklines=true,               % Automatically wraps long lines of code
-% Hover tips: every matching word in any code block gets a tooltip.
+    breaklines=true                % Automatically wraps long lines of code
+}
+
+% Hover tips (Java only): every matching word gets a tooltip.
 % Format: {word}{{\codetip{word}{message}}}{length of word}
+\lstdefinestyle{javatips}{
     literate=
         {public}{{\codetip{public}{public means this code can be accessed from any other class.}}}{6}
         {class}{{\codetip{class}{class is a blueprint for creating objects.}}}{5}
         {int}{{\codetip{int}{int is a data type that stores whole numbers.}}}{3}
         {println}{{\codetip{println}{println prints a message to the console and moves to a new line.}}}{7}
+        {new}{{\codetip{new}{new creates a new object from a class.}}}{3}
+}
+% Hover tips for other languages: add {word}{{\codetip{word}{message}}}{length of word} lines.
+\lstdefinestyle{pythontips}{
+    literate=
+        {def}{{\codetip{def}{def defines a function.}}}{3}
+        {print}{{\codetip{print}{print displays a value on the screen.}}}{5}
+}
+\lstdefinestyle{htmltips}{
+    literate=
+        {h}{{\codetip{h}{r}}}{1}
+        {h}{{\codetip{h}{r}}}{1}
+}
+\lstdefinestyle{csstips}{
+    literate=
+        {c}{{\codetip{c}{o}}}{1}
+        {c}{{\codetip{c}{o}}}{1}
+}
+\lstdefinestyle{javascripttips}{
+    literate=
+        {const}{{\codetip{const}{const declares a variable that cannot be reassigned.}}}{5}
+        {console}{{\codetip{console}{console is the browser tool used to print messages.}}}{7}
+}
+\lstdefinestyle{csharptips}{
+    literate=
+        {class}{{\codetip{class}{class is a blueprint for creating objects.}}}{5}
+        {static}{{\codetip{static}{static means it belongs to the class, not an object.}}}{6}
+}
+\lstdefinestyle{cpptips}{
+    literate=
+        {cout}{{\codetip{cout}{cout prints output to the console.}}}{4}
+        {include}{{\codetip{include}{include loads code from a library.}}}{7}
+}
+\lstdefinestyle{rusttips}{
+    literate=
+        {println}{{\codetip{println}{println! prints a message and moves to a new line.}}}{7}
+        {mut}{{\codetip{mut}{mut makes a variable changeable.}}}{3}
 }
 
-% Code block with a file-name header: \begin{javafile}{Dog.java} ... \end{javafile}
-\newtcblisting{javafile}[1]{
+% Languages not built into listings
+\lstdefinelanguage{JavaScript}{
+    morekeywords={break,case,catch,class,const,continue,default,delete,do,else,export,extends,
+    finally,for,function,if,import,in,instanceof,let,new,return,super,switch,this,throw,
+    try,typeof,var,void,while,yield,async,await,of,null,undefined,true,false},
+    sensitive=true, morecomment=[l]{//}, morecomment=[s]{/*}{*/},
+    morestring=[b]", morestring=[b]', morestring=[b]`
+}
+\lstdefinelanguage{CSS}{
+    morekeywords={@media,@import,@font-face,!important},
+    sensitive=true, morecomment=[s]{/*}{*/}, morestring=[b]", morestring=[b]'
+}
+\lstdefinelanguage{Rust}{
+    morekeywords={as,async,await,break,const,continue,crate,dyn,else,enum,extern,false,fn,for,
+    if,impl,in,let,loop,match,mod,move,mut,pub,ref,return,self,Self,static,struct,super,
+    trait,true,type,unsafe,use,where,while,i8,i16,i32,i64,u8,u16,u32,u64,usize,isize,f32,
+    f64,bool,char,str,String,Vec,Option,Some,None,Result,Ok,Err},
+    morekeywords=[2]{println,print,format,vec,panic,assert,assert_eq},
+    keywordstyle=[2]\color{blue},
+    sensitive=true, morecomment=[l]{//}, morecomment=[n]{/*}{*/}, morestring=[b]"
+}
+
+% Shared code box look; #1 = file name shown in the header
+\tcbset{codefile/.style={
     listing only,
-    listing options={language=Java},
     colback=white, colframe=black!70,
     title={\sffamily\bfseries #1}, fonttitle=\small,
     boxrule=0.6pt, arc=1mm
-}
+}}
 
-% --- Document Info ---
-\title{CSA Worksheet \#1: Introduction to Variables}
-\author{Eldon Career Center Computer Science}
-\date{October 27, 2026}                            % Leave empty to hide the date
+% Usage: \begin{javafile}{Main.java} ... \end{javafile}
+% Also: pythonfile, htmlfile, cssfile, javascriptfile, csharpfile, cppfile, rustfile
+\newtcblisting{javafile}[1]{codefile={#1}, listing options={language=Java,style=javatips}}
+\newtcblisting{pythonfile}[1]{codefile={#1}, listing options={language=Python,style=pythontips}}
+\newtcblisting{htmlfile}[1]{codefile={#1}, listing options={language=HTML,style=htmltips}}
+\newtcblisting{cssfile}[1]{codefile={#1}, listing options={language=CSS,style=csstips}}
+\newtcblisting{javascriptfile}[1]{codefile={#1}, listing options={language=JavaScript,style=javascripttips}}
+\newtcblisting{csharpfile}[1]{codefile={#1}, listing options={language={[Sharp]C},style=csharptips}}
+\newtcblisting{cppfile}[1]{codefile={#1}, listing options={language=C++,style=cpptips}}
+\newtcblisting{rustfile}[1]{codefile={#1}, listing options={language=Rust,style=rusttips}}
+
+% ============================================================
+% EDIT PER WORKSHEET / CLASS (everything below this line)
+% ============================================================
+
+% --- Document Info: change title, course/author line, and date ---
+\title{CSA Worksheet \#1: Introduction to Methods}   % EDIT: worksheet number and topic
+\author{Eldon Career Center Computer Science}          % EDIT: class / teacher name
+\date{October 27, 2026}                                % EDIT: due/assigned date; leave empty to hide
 
 \begin{document}
     \maketitle
     \begin{Form}
 
+        % EDIT: turn-in instructions. Update the example file name (Step 3),
+        % and the platform (Step 4) if you don't use Google Classroom.
         \begin{tcolorbox}[
             colback=yellow!10,
             colframe=yellow!60!black,
@@ -87,16 +166,27 @@
             \end{itemize}
         \end{tcolorbox}
 
+        % ---------- QUESTION TEMPLATE (copy this block for each question) ----------
+        % 1. Change the section title and the question text.
+        % 2. Pick the code environment matching the language and set the file name:
+        %      javafile, pythonfile, htmlfile, cssfile, javascriptfile,
+        %      csharpfile, cppfile, rustfile   e.g. \begin{pythonfile}{main.py}
+        %    Delete the code block if the question has no code.
+        % 3. Give each \answerfield a UNIQUE name (q1, q2, q3...) or answers will be shared.
+        %    The second argument is the field height; keep it a bit smaller than the
+        %    box height (e.g. height=2.5cm box -> 1.2cm field; raise both for longer answers).
         \section*{Question 1: Analyzing Constructors}
-        Look at the constructor below and determine what it is doing.
+        Look at the constructors without looking at the Cake.java below and determine what it is doing.
+        This is called \codetip{Abstraction}{Abstraction is a programming concept that hides complex implementation details and shows only the necessary features.}{}. % This is a tooltip outside of a code block.
 
-        \begin{javafile}{Main.java}
-            public class Main {
+        \begin{javafile}{CakeRunner.java}
+            public class CakeRunner {
                 public static void main(String[] args) {
-                    int x = 5;
-                    int y = 10;
-                    x = x + y;
-                    System.out.println(x);
+                    System.out.println("My cake:");
+                    Cake myCake = new Cake();
+                    myCake.twoTiers();
+                    myCake.addCandles();
+                    myCake.show();
                 }
             }
         \end{javafile}
@@ -105,12 +195,50 @@
             \answerfield{q1}{1.2cm}
         \end{tcolorbox}
 
-        \section*{Question 2: Syntax Error Hunt}
-        Identify the error in the following statement: \texttt{int class = 12;}
+        \section*{Question 2: Instance Variables}
+        What are instance variables and how are they used in a class?
+        \begin{javafile}{Cake.java}
+            ...
+            String layers = "";
+            String candles = "";
+            ...
 
-        \begin{tcolorbox}[title=Answer Box, fonttitle=\bfseries\sffamily\large,     height=2.5cm, colback=white, colframe=blue] % Makes a colored box for the answer
-            \answerfield{q2}{1.2cm}
-        \end{tcolorbox}
+            public void addCandles()
+                {
+                candles = "         ,,,\n         |||";
+            }
+            ...
+}
+\end{javafile}
 
-    \end{Form}
+\begin{tcolorbox}[title=Answer Box, fonttitle=\bfseries\sffamily\large,     height=2.5cm, colback=white, colframe=blue] % Makes a colored box for the answer
+\answerfield{q2}{1.2cm}
+\end{tcolorbox}
+
+\section*{Question 3: Null vs. Void}
+What is the difference between a method that returns \codetip{null}{null is a special value that represents the absence of a value.}{} and a method that returns \codetip{void}{void means the method does not return any value.}{}?
+
+\begin{tcolorbox}[title=Answer Box, fonttitle=\bfseries\sffamily\large,     height=2.5cm, colback=white, colframe=blue] % Makes a colored box for the answer
+\answerfield{q2}{1.2cm}
+\end{tcolorbox}
+
+\section*{Question 4: Using Arguments}
+What is the purpose of using \codetip{arguments}{Arguments are values passed to a method when it is called.} in a method? How do they help make a method more flexible?
+
+\begin{javafile}{CakeRunner.java}
+public class CakeRunner {
+public static void main(String[] args) {
+System.out.println("My cake:");
+Cake myCake = new Cake(2);
+myCake.show();
+}
+}
+\end{javafile}
+
+\begin{tcolorbox}[title=Answer Box, fonttitle=\bfseries\sffamily\large,     height=2.5cm, colback=white, colframe=blue] % Makes a colored box for the answer
+\answerfield{q1}{1.2cm}
+\end{tcolorbox}
+
+
+\end{Form}
 \end{document}
