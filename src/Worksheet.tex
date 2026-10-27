@@ -1,5 +1,5 @@
 %! Author = mccauw
-%! Date = 10/23/2026
+%! Date = 10/27/2026
 
 \documentclass[11pt]{article}
 
@@ -43,8 +43,8 @@
     keywordstyle=\color{blue},     % Makes keywords (like public, class) blue
     commentstyle=\color{gray},     % Makes comments gray
     breaklines=true,               % Automatically wraps long lines of code
-    % Hover tips: every matching word in any code block gets a tooltip.
-    % Format: {word}{{\codetip{word}{message}}}{length of word}
+% Hover tips: every matching word in any code block gets a tooltip.
+% Format: {word}{{\codetip{word}{message}}}{length of word}
     literate=
         {public}{{\codetip{public}{public means this code can be accessed from any other class.}}}{6}
         {class}{{\codetip{class}{class is a blueprint for creating objects.}}}{5}
@@ -52,56 +52,65 @@
         {println}{{\codetip{println}{println prints a message to the console and moves to a new line.}}}{7}
 }
 
+% Code block with a file-name header: \begin{javafile}{Dog.java} ... \end{javafile}
+\newtcblisting{javafile}[1]{
+    listing only,
+    listing options={language=Java},
+    colback=white, colframe=black!70,
+    title={\sffamily\bfseries #1}, fonttitle=\small,
+    boxrule=0.6pt, arc=1mm
+}
+
 % --- Document Info ---
 \title{CSA Worksheet \#1: Introduction to Variables}
 \author{Eldon Career Center Computer Science}
-\date{October 23, 2026}                            % Leave empty to hide the date
+\date{October 27, 2026}                            % Leave empty to hide the date
 
 \begin{document}
     \maketitle
     \begin{Form}
 
-    \begin{tcolorbox}[
-        colback=yellow!10,
-        colframe=yellow!60!black,
-        title=\textbf{\sffamily Important Instructions for Turning In:},
-        fonttitle=\sffamily\bfseries,
-        arc=2mm
-    ]
-        \sffamily
-        \begin{itemize}[nosep]
+        \begin{tcolorbox}[
+            colback=yellow!10,
+            colframe=yellow!60!black,
+            title=\textbf{\sffamily Important Instructions for Turning In:},
+            fonttitle=\sffamily\bfseries,
+            arc=2mm
+        ]
+            \sffamily
+            \begin{itemize}[nosep]
             \item \textbf{Step 1:} Open this PDF and type your answers directly into the boxes below.
             \item \textbf{Step 2:} Use the \textbf{Download / Save} icon in your PDF viewer's toolbar (it is not on this page).
             \item \textbf{Step 3:} Make sure to save your name in the file name ex.: CSAWorksheet1McCauleyW.pdf
             \item \textbf{Step 4:} Upload that saved file back to Google Classroom and click \textbf{Turn In}.
             \item \textbf{Tablet/phone users:} The Google Drive preview does not save typed answers. Open the PDF in the free Adobe Acrobat Reader app or Kami first.
-        \end{itemize}
-    \end{tcolorbox}
+            \end{itemize}
+        \end{tcolorbox}
 
-    \section*{Question 1: Analyzing Java Code}
-    Look at the code block below and determine what value will print to the console.
+        \section*{Question 1: Analyzing Constructors}
+        Look at the constructor below and determine what it is doing.
 
-    \begin{lstlisting}[language=Java]
-public class Main {
-    public static void main(String[] args) {
-        int x = 5;
-        int y = 10;
-        x = x + y;
-        System.out.println(x);
-    }
-}
-    \end{lstlisting}
+        \begin{javafile}{Main.java}
+            public class Main {
+                public static void main(String[] args) {
+                    int x = 5;
+                    int y = 10;
+                    x = x + y;
+                    System.out.println(x);
+                }
+            }
+        \end{javafile}
 
-    \begin{tcolorbox}[title=Answer Box, fonttitle=\bfseries\sffamily\large,     height=2.5cm, colback=white, colframe=blue] % Makes a colored box for the answer
+        \begin{tcolorbox}[title=Answer Box, fonttitle=\bfseries\sffamily\large,     height=2.5cm, colback=white, colframe=blue] % Makes a colored box for the answer
             \answerfield{q1}{1.2cm}
-    \end{tcolorbox}
+        \end{tcolorbox}
 
-    \section*{Question 2: Syntax Error Hunt}
-    Identify the error in the following statement: \texttt{int class = 12;}
+        \section*{Question 2: Syntax Error Hunt}
+        Identify the error in the following statement: \texttt{int class = 12;}
 
-    \begin{tcolorbox}[title=Answer Box, fonttitle=\bfseries\sffamily\large,     height=2.5cm, colback=white, colframe=blue] % Makes a colored box for the answer
+        \begin{tcolorbox}[title=Answer Box, fonttitle=\bfseries\sffamily\large,     height=2.5cm, colback=white, colframe=blue] % Makes a colored box for the answer
             \answerfield{q2}{1.2cm}
         \end{tcolorbox}
 
-        \end{Form}
+    \end{Form}
 \end{document}
