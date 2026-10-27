@@ -1,0 +1,107 @@
+%! Author = mccauw
+%! Date = 10/23/2026
+
+\documentclass[11pt]{article}
+
+% --- Essential Packages ---
+\usepackage[margin=0.85in]{geometry}  % Sets clean 1-inch margins
+\usepackage{amsmath}               % For math equations and logic symbols
+\usepackage{listings}              % Core package for rendering computer code
+\usepackage{xcolor}                % Adds color support for code syntax styling
+\usepackage[most]{tcolorbox}       % For creating colored boxes around code blocks
+
+\usepackage{hyperref}              % Fillable PDF form fields (load last)
+\usepackage{enumitem}              % Compact lists
+
+\usepackage{pdfcomment}            % Hover tooltips (Acrobat/desktop viewers only)
+
+% Blue (keyword-colored) code word with a hover message
+\newcommand{\codetip}[2]{\pdftooltip{\textcolor{blue}{#1}}{#2}}
+
+\hypersetup{
+    pdftitle={Assignment Submission},
+    pdfpagemode=UseNone
+}
+
+% Fillable answer field: \answerfield{unique-name}{height}
+% Light-gray border and tinted background help students spot typing areas
+\newcommand{\answerfield}[2]{%
+    \TextField[name=#1, multiline=true, width=\linewidth, height=#2,
+        bordercolor={0.6 0.6 0.6}, backgroundcolor={0.97 0.97 0.99},
+        charsize=11pt, borderwidth=1]{}%
+}
+
+% --- Simple Code Styling Config ---
+\lstset{
+    frame=tb,                      % Draws a line above and below the code
+    language=Java,                 % Default programming language
+    aboveskip=3mm,                 % Space before the code block
+    belowskip=3mm,                 % Space after the code block
+    showstringspaces=false,        % Don't show weird symbols for spaces
+    columns=flexible,
+    basicstyle={\small\ttfamily},  % Uses a clean monospaced font
+    keywordstyle=\color{blue},     % Makes keywords (like public, class) blue
+    commentstyle=\color{gray},     % Makes comments gray
+    breaklines=true,               % Automatically wraps long lines of code
+    % Hover tips: every matching word in any code block gets a tooltip.
+    % Format: {word}{{\codetip{word}{message}}}{length of word}
+    literate=
+        {public}{{\codetip{public}{public means this code can be accessed from any other class.}}}{6}
+        {class}{{\codetip{class}{class is a blueprint for creating objects.}}}{5}
+        {int}{{\codetip{int}{int is a data type that stores whole numbers.}}}{3}
+        {println}{{\codetip{println}{println prints a message to the console and moves to a new line.}}}{7}
+}
+
+% --- Document Info ---
+\title{CSA Worksheet \#1: Introduction to Variables}
+\author{Eldon Career Center Computer Science}
+\date{October 23, 2026}                            % Leave empty to hide the date
+
+\begin{document}
+    \maketitle
+    \begin{Form}
+
+    \begin{tcolorbox}[
+        colback=yellow!10,
+        colframe=yellow!60!black,
+        title=\textbf{\sffamily Important Instructions for Turning In:},
+        fonttitle=\sffamily\bfseries,
+        arc=2mm
+    ]
+        \sffamily
+        \begin{itemize}[nosep]
+            \item \textbf{Step 1:} Open this PDF and type your answers directly into the boxes below.
+            \item \textbf{Step 2:} Use the \textbf{Download / Save} icon in your PDF viewer's toolbar (it is not on this page).
+            \item \textbf{Step 3:} Make sure to save your name in the file name ex.: CSAWorksheet1McCauleyW.pdf
+            \item \textbf{Step 4:} Upload that saved file back to Google Classroom and click \textbf{Turn In}.
+            \item \textbf{Tablet/phone users:} The Google Drive preview does not save typed answers. Open the PDF in the free Adobe Acrobat Reader app or Kami first.
+        \end{itemize}
+    \end{tcolorbox}
+
+    \section*{Question 1: Analyzing Java Code}
+    Look at the code block below and determine what value will print to the console.
+
+    \begin{lstlisting}[language=Java]
+public class Main {
+    public static void main(String[] args) {
+        int x = 5;
+        int y = 10;
+        x = x + y;
+        System.out.println(x);
+    }
+}
+    \end{lstlisting}
+
+    \begin{tcolorbox}[title=Answer Box, fonttitle=\bfseries\sffamily\large,     height=2.5cm, colback=white, colframe=blue] % Makes a colored box for the answer
+            \answerfield{q1}{1.2cm}
+    \end{tcolorbox}
+
+    \section*{Question 2: Syntax Error Hunt}
+    Identify the error in the following statement: \texttt{int class = 12;}
+
+    \begin{tcolorbox}[title=Answer Box, fonttitle=\bfseries\sffamily\large,     height=2.5cm, colback=white, colframe=blue] % Makes a colored box for the answer
+            \answerfield{q2}{1.2cm}
+        \end{tcolorbox}
+
+        \end{Form}
+\end{document}
